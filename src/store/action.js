@@ -9,11 +9,7 @@ export const loadEmployeesFetchDataSuccess = (employees) => {
 export const loadEmployeesFetchData = (url) => {
     return async (dispatch) => {
         let response = await fetch(url);
-        if (response.status === 200) {
-            response = await response.json();
-            dispatch(loadEmployeesFetchDataSuccess(response));
-        } else {
-            alert('Error from server!!!');
-        }
+        response = await response.json();
+        dispatch(loadEmployeesFetchDataSuccess(response));
     }
 }

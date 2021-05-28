@@ -1,5 +1,12 @@
 import React from 'react';
-const Employees = () => {
+import { connect } from 'react-redux';
+import { loadEmployeesFetchData } from '../store/action';
+const Employees = (props) => {
+    const { loadEmployees, employees } = props;
+    React.useEffect(() => {
+        const url = `https://yalantis-react-school-api.yalantis.com/api/task0/users`;
+        loadEmployees(url);
+    }, []);
     return (
         <div
             className='employees'
@@ -8,8 +15,29 @@ const Employees = () => {
             <div
                 className='list_employees'
             >
+                <ul>
+                    {
+                        employees.map((employee) => {
+                            return (
+                                <>
+                                    <li>{`${employee.lastName} ${employee.firstName}`}</li>
+                                </>
+                            )
+                        })
+                    }
+                </ul>
             </div>
         </div>
     )
 }
-export default Employees;
+const mapStateToProps = state => {
+    return {
+        employees: state
+    };
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        loadEmployees: (url) => dispatch(loadEmployeesFetchData(url))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Employees);

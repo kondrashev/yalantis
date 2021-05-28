@@ -1,5 +1,5 @@
 import { LOAD_EMPLOYEES_DATA_SUCCESS } from './action';
-export const initialState = {};
+export const initialState = [];
 
 const LoadEmployeesReducer = (state = initialState, action) => {
     switch (action.type) {
