@@ -46,7 +46,9 @@ const Employees = (props) => {
                                                         employee: employee
                                                     }}
                                                 >
-                                                    <Employee />
+                                                    <Employee
+                                                        key={employee.id}
+                                                    />
                                                 </EmployeesContext.Provider>
                                             )
                                         })
