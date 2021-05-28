@@ -1,5 +1,52 @@
 .application{
     display: flex;
     justify-content: space-around;
+    align-items: flex-start;
+    font-family: 'OpenSans-Regular';
+}
+.title_employees{
+    display: block;
+    width: 700px;
+    height: 30px;
+    border-bottom: 1px solid black;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.employees{
+    width: 900px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+}
+.list_employees{
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-right: 1px solid black;
+}
+.employee{
+    width: 150px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+.employee_radio{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+.employee_radio input{
+    cursor: pointer;
+}
+.employee_radio .radio_button_block{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
 }

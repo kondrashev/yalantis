@@ -2,7 +2,7 @@ import React from 'react';
 const EmployeesBirthday = () => {
     return (
         <div
-            className='employees'
+            className='employees_birthday'
         >
             <h>Employees birthday</h>
         </div>
