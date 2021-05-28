@@ -1,0 +1,10 @@
+body {
+	margin: 0;
+}
+@font-face {
+	font-family: 'OpenSans-Regular';
+	src: url('./fonts/OpenSans-Regular.ttf');
+	font-weight: 300;
+	font-style: normal;
+}
+@import './styles/App.scss';
