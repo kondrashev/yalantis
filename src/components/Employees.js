@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { loadEmployeesFetchData } from '../store/action';
+import Employee from './Employee';
+
+export const EmployeesContext = React.createContext();
 const Employees = (props) => {
     const { loadEmployees, employees } = props;
-    const colorEmployee = React.useRef('black');
     const alphabet = [];
     (() => {
         for (let i = 65; i < 91; i++) {
@@ -14,12 +16,6 @@ const Employees = (props) => {
         const url = `https://yalantis-react-school-api.yalantis.com/api/task0/users`;
         loadEmployees(url);
     }, []);
-    const toChoose = () => {
-        colorEmployee.current.style.color = 'blue';
-    }
-    const cancelToChoose = () => {
-        colorEmployee.current.style.color = 'black';
-    }
     return (
         <div
             className='employees'
@@ -45,37 +41,13 @@ const Employees = (props) => {
                                         .sort((a, b) => a.lastName > b.lastName ? 1 : -1)
                                         .map(employee => {
                                             return (
-                                                <div
-                                                    className='employee_radio'
+                                                <EmployeesContext.Provider
+                                                    value={{
+                                                        employee: employee
+                                                    }}
                                                 >
-                                                    <div
-                                                        ref={colorEmployee}
-                                                    >
-                                                        {`${employee.lastName} ${employee.firstName}`}
-                                                    </div>
-                                                    <div
-                                                        className='radio_button_block'
-                                                    >
-                                                        <input
-                                                            type='radio'
-                                                            name='1'
-                                                            onClick={cancelToChoose}
-                                                        >
-                                                        </input>
-                                                        <label>not active</label>
-                                                    </div>
-                                                    <div
-                                                        className='radio_button_block'
-                                                    >
-                                                        <input
-                                                            type='radio'
-                                                            name='1'
-                                                            onClick={toChoose}
-                                                        >
-                                                        </input>
-                                                        <label>active</label>
-                                                    </div>
-                                                </div>
+                                                    <Employee />
+                                                </EmployeesContext.Provider>
                                             )
                                         })
                                 }
