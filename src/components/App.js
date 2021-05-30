@@ -12,15 +12,26 @@ const store = createStore(
 	applyMiddleware(thunk)
 );
 
+export const ApplictationContext = React.createContext();
 const App = () => {
+	const [values, setValues] = React.useState({
+		listEmployeesUpdate: []
+	});
 	return (
 		<Provider store={store}>
-			<div
-				className='application'
+			<ApplictationContext.Provider
+				value={{
+					values: values,
+					setValues: setValues
+				}}
 			>
-				<Employees />
-				<EmployeesBirthday />
-			</div>
+				<div
+					className='application'
+				>
+					<Employees />
+					<EmployeesBirthday />
+				</div>
+			</ApplictationContext.Provider>
 		</Provider>
 	);
 };

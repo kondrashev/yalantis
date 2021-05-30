@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { ApplictationContext } from './App';
 import { EmployeesContext } from './Employees';
 const Employee = (props) => {
     const { employees } = props;
     const { employee } = React.useContext(EmployeesContext);
+    const { values, setValues } = React.useContext(ApplictationContext);
     const colorEmployee = React.useRef('black');
     const radioNotActiveEmployee = React.useRef(null);
     const radioActiveEmployee = React.useRef(null);
@@ -16,6 +18,10 @@ const Employee = (props) => {
         const listEmployees = JSON.parse(localStorage.getItem(birthdayMonth));
         listEmployees.push(birthdayInformation);
         localStorage.setItem(birthdayMonth, JSON.stringify(listEmployees));
+        setValues({
+            ...values,
+            listEmployeesUpdate: listEmployees
+        });
     }
     const cancelToChoose = () => {
         colorEmployee.current.style.color = 'black';
@@ -25,6 +31,10 @@ const Employee = (props) => {
         const birthdayInformation = `${colorEmployee.current.textContent}-${new Date(birthdayEmployees[0].dob).getDate()} ${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}, ${new Date(birthdayEmployees[0].dob).getFullYear()} year`;
         const listEmployees = JSON.parse(localStorage.getItem(birthdayMonth));
         localStorage.setItem(birthdayMonth, JSON.stringify(listEmployees.filter(employee => employee !== birthdayInformation)));
+        setValues({
+            ...values,
+            listEmployeesUpdate: listEmployees
+        });
     }
     return (
         <div
