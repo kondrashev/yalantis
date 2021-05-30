@@ -22,7 +22,8 @@ const Employees = (props) => {
         >
             <h
                 className='title_employees'
-            >Employees
+            >
+                Employees
             </h>
             <div
                 className='list_employees'

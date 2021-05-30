@@ -4,9 +4,11 @@
     align-items: flex-start;
     font-family: 'OpenSans-Regular';
 }
-.title_employees{
+.title_employees,
+.birthday_employees
+{
     display: block;
-    width: 700px;
+    width: 300px;
     height: 30px;
     border-bottom: 1px solid black;
     text-align: center;
