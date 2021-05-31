@@ -9,18 +9,29 @@ const Employee = (props) => {
     const colorEmployee = React.useRef('black');
     const radioNotActiveEmployee = React.useRef(null);
     const radioActiveEmployee = React.useRef(null);
+    const updateLocalStorage = (birthdayMonth, birthdayInformation) => {
+        let listEmployees = JSON.parse(localStorage.getItem(birthdayMonth));
+        if (radioActiveEmployee.current.checked) {
+            listEmployees.push(birthdayInformation);
+        } else {
+            listEmployees = listEmployees.filter(employee => employee !== birthdayInformation);
+        }
+        localStorage.setItem(birthdayMonth, JSON.stringify(listEmployees));
+        setValues({
+            ...values,
+            listEmployeesUpdate: listEmployees
+        });
+    }
     const toChoose = () => {
         colorEmployee.current.style.color = 'blue';
         radioNotActiveEmployee.current.checked = false;
         const birthdayEmployees = employees.filter(employee => employee.id === radioActiveEmployee.current.value);
         const birthdayMonth = `${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}`;
         const birthdayInformation = `${colorEmployee.current.textContent}-${new Date(birthdayEmployees[0].dob).getDate()} ${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}, ${new Date(birthdayEmployees[0].dob).getFullYear()} year`;
-        let listEmployees = JSON.parse(localStorage.getItem(birthdayMonth));
-        listEmployees.push(birthdayInformation);
-        localStorage.setItem(birthdayMonth, JSON.stringify(listEmployees));
+        values.swithcListEmployeesUpdate && updateLocalStorage(birthdayMonth, birthdayInformation);
         setValues({
             ...values,
-            listEmployeesUpdate: listEmployees
+            swithcListEmployeesUpdate: false
         });
     }
     const cancelToChoose = () => {
@@ -29,12 +40,10 @@ const Employee = (props) => {
         const birthdayEmployees = employees.filter(employee => employee.id === radioNotActiveEmployee.current.value);
         const birthdayMonth = `${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}`;
         const birthdayInformation = `${colorEmployee.current.textContent}-${new Date(birthdayEmployees[0].dob).getDate()} ${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}, ${new Date(birthdayEmployees[0].dob).getFullYear()} year`;
-        let listEmployees = JSON.parse(localStorage.getItem(birthdayMonth));
-        listEmployees = listEmployees.filter(employee => employee !== birthdayInformation);
-        localStorage.setItem(birthdayMonth, JSON.stringify(listEmployees));
+        !values.swithcListEmployeesUpdate && updateLocalStorage(birthdayMonth, birthdayInformation);
         setValues({
             ...values,
-            listEmployeesUpdate: listEmployees
+            swithcListEmployeesUpdate: true
         });
     }
     return (
