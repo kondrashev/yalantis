@@ -9,6 +9,7 @@ const Employee = (props) => {
     const colorEmployee = React.useRef('black');
     const radioNotActiveEmployee = React.useRef(null);
     const radioActiveEmployee = React.useRef(null);
+    const informationBirthday = React.useRef(null);
     const updateLocalStorage = (birthdayMonth, birthdayInformation) => {
         let listEmployees = JSON.parse(localStorage.getItem(birthdayMonth));
         if (radioActiveEmployee.current.checked) {
@@ -28,11 +29,10 @@ const Employee = (props) => {
         const birthdayEmployees = employees.filter(employee => employee.id === radioActiveEmployee.current.value);
         const birthdayMonth = `${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}`;
         const birthdayInformation = `${colorEmployee.current.textContent}-${new Date(birthdayEmployees[0].dob).getDate()} ${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}, ${new Date(birthdayEmployees[0].dob).getFullYear()} year`;
-        values.swithcListEmployeesUpdate && updateLocalStorage(birthdayMonth, birthdayInformation);
-        setValues({
-            ...values,
-            swithcListEmployeesUpdate: false
-        });
+        if (birthdayInformation !== informationBirthday.current) {
+            updateLocalStorage(birthdayMonth, birthdayInformation);
+            informationBirthday.current = `${colorEmployee.current.textContent}-${new Date(birthdayEmployees[0].dob).getDate()} ${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}, ${new Date(birthdayEmployees[0].dob).getFullYear()} year`;
+        }
     }
     const cancelToChoose = () => {
         colorEmployee.current.style.color = 'black';
@@ -40,11 +40,7 @@ const Employee = (props) => {
         const birthdayEmployees = employees.filter(employee => employee.id === radioNotActiveEmployee.current.value);
         const birthdayMonth = `${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}`;
         const birthdayInformation = `${colorEmployee.current.textContent}-${new Date(birthdayEmployees[0].dob).getDate()} ${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}, ${new Date(birthdayEmployees[0].dob).getFullYear()} year`;
-        !values.swithcListEmployeesUpdate && updateLocalStorage(birthdayMonth, birthdayInformation);
-        setValues({
-            ...values,
-            swithcListEmployeesUpdate: true
-        });
+        updateLocalStorage(birthdayMonth, birthdayInformation);
     }
     return (
         <div
