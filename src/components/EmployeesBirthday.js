@@ -2,7 +2,7 @@ import React from 'react';
 import { ApplictationContext } from './App';
 
 const EmployeesBirthday = () => {
-    const { values, setValues } = React.useContext(ApplictationContext);
+    const { values } = React.useContext(ApplictationContext);
     const months = [];
     (() => {
         for (let i = 1; i < 13; i++) {
@@ -58,6 +58,10 @@ const EmployeesBirthday = () => {
                         </div>
                     )
                 })
+            }
+            {
+                values.listEmployeesEmpty &&
+                <h>Employees List is empty</h>
             }
         </div>
     )

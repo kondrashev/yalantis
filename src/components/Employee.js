@@ -33,6 +33,7 @@ const Employee = (props) => {
             updateLocalStorage(birthdayMonth, birthdayInformation);
             informationBirthday.current = `${colorEmployee.current.textContent}-${new Date(birthdayEmployees[0].dob).getDate()} ${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}, ${new Date(birthdayEmployees[0].dob).getFullYear()} year`;
         }
+        localStorageUpdate();
     }
     const cancelToChoose = () => {
         colorEmployee.current.style.color = 'black';
@@ -41,7 +42,23 @@ const Employee = (props) => {
         const birthdayMonth = `${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}`;
         const birthdayInformation = `${colorEmployee.current.textContent}-${new Date(birthdayEmployees[0].dob).getDate()} ${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}, ${new Date(birthdayEmployees[0].dob).getFullYear()} year`;
         updateLocalStorage(birthdayMonth, birthdayInformation);
+        informationBirthday.current = null;
+        localStorageUpdate();
     }
+    const localStorageUpdate = () => {
+        let countEmployees = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            countEmployees[i] = (JSON.parse(localStorage.getItem(localStorage.key(i))));
+        };
+        countEmployees = countEmployees.filter(employee => employee.length !== 0);
+        setValues({
+            ...values,
+            listEmployeesEmpty: countEmployees.length ? false : true
+        });
+    }
+    React.useEffect(() => {
+        localStorageUpdate();
+    }, []);
     return (
         <div
             className='employee_radio'

@@ -15,7 +15,8 @@ const store = createStore(
 export const ApplictationContext = React.createContext();
 const App = () => {
 	const [values, setValues] = React.useState({
-		listEmployeesUpdate: []
+		listEmployeesUpdate: [],
+		listEmployeesEmpty: false
 	});
 	return (
 		<Provider store={store}>
