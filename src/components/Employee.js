@@ -34,7 +34,7 @@ const Employee = (props) => {
             informationBirthday.current = `${colorEmployee.current.textContent}-${new Date(birthdayEmployees[0].dob).getDate()} ${new Date(birthdayEmployees[0].dob).toLocaleString('en', { month: 'long' })}, ${new Date(birthdayEmployees[0].dob).getFullYear()} year`;
         }
         localStorageUpdate();
-    }
+    };
     const cancelToChoose = () => {
         colorEmployee.current.style.color = 'black';
         radioActiveEmployee.current.checked = false;
@@ -53,18 +53,38 @@ const Employee = (props) => {
         countEmployees = countEmployees.filter(employee => employee.length !== 0);
         setValues({
             ...values,
+            chosenEmployees: countEmployees,
             listEmployeesEmpty: countEmployees.length ? false : true
         });
     }
     React.useEffect(() => {
         localStorageUpdate();
+        if (!values.listEmployeesEmpty) radioNotActiveEmployee.current.checked = true;
     }, []);
+    const employeesChosen = () => {
+        let color = 'black';
+        values.chosenEmployees.map((person) => {
+            if (person[0].indexOf(employee.lastName) === 0) {
+                color = 'blue';
+                radioActiveEmployee.current.checked = true;
+                radioNotActiveEmployee.current.checked = false;
+            } else {
+                radioActiveEmployee.current.checked ?
+                    radioNotActiveEmployee.current.checked = false :
+                    radioNotActiveEmployee.current.checked = true;
+            }
+        });
+        return color;
+    };
     return (
         <div
             className='employee_radio'
         >
             <div
                 ref={colorEmployee}
+                style={{
+                    color: employeesChosen()
+                }}
             >
                 {`${employee.lastName} ${employee.firstName}`}
             </div>

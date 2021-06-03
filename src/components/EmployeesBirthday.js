@@ -29,35 +29,36 @@ const EmployeesBirthday = () => {
                 Employees birthday
             </h>
             {
-                localStorage.length &&
-                months.map((month) => {
-                    const employees = JSON.parse(localStorage.getItem(month));
-                    return (
-                        <div
-                            key={month}
-                        >
-                            {
-                                employees.length != 0 &&
-                                <h>
-                                    {month}
-                                </h>
-                            }
-                            <ul>
+                localStorage.length ?
+                    months.map((month) => {
+                        const employees = JSON.parse(localStorage.getItem(month));
+                        return (
+                            <div
+                                key={month}
+                            >
                                 {
-                                    employees.map((employee) => {
-                                        return (
-                                            <li
-                                                key={employee}
-                                            >
-                                                {employee}
-                                            </li>
-                                        )
-                                    })
+                                    employees.length !== 0 &&
+                                    <h>
+                                        {month}
+                                    </h>
                                 }
-                            </ul>
-                        </div>
-                    )
-                })
+                                <ul>
+                                    {
+                                        employees.map((employee) => {
+                                            return (
+                                                <li
+                                                    key={employee}
+                                                >
+                                                    {employee}
+                                                </li>
+                                            )
+                                        })
+                                    }
+                                </ul>
+                            </div>
+                        )
+                    }) :
+                    <h>Employees List is empty</h>
             }
             {
                 values.listEmployeesEmpty &&
